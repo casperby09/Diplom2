@@ -1,0 +1,26 @@
+﻿@using Diplom2.ViewModels
+@model AdminAddRole
+@{
+    ViewData["Title"] = "Role user" + @Model.User.UserName;
+}
+<h2>Role user @Model.User.UserName</h2>
+<form method="post" asp-action="AddRolePost" asp-route-id="@Model.User.Id">
+    @foreach(var role in Model.Role)
+    {
+        @if(Model.RoleUser.Contains(role.ToString()))
+        {
+            <div class="row">
+            <input checked type="checkbox" name="roles" value="@role" id="@role">
+            <label for="@role">@role</label>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+            <input type="checkbox" name="roles" value="@role" id="@role">
+            <label for="@role">@role</label>
+            </div>
+        }
+    }
+    <button type="submit">Save</button>
+</form>

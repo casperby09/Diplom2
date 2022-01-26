@@ -1,0 +1,5 @@
+﻿body, .row .card-item, .comments textarea, .form-control, input[type=text], .bg-white, a, .navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link, tr {
+    background-color: #19191A !important;
+    color: #fff !important;
+}

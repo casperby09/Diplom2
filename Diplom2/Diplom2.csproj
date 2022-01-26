@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-Diplom2-999C4514-5003-4758-9BBF-911C46D08A8A</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20220116105800_likeadd.cs" />
+    <Compile Remove="Data\Migrations\20220116105800_likeadd.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220116210911_addcoment.cs" />
+    <Compile Remove="Data\Migrations\20220116210911_addcoment.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220116211204_addcoment.cs" />
+    <Compile Remove="Data\Migrations\20220116211204_addcoment.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220116211726_addcoment.cs" />
+    <Compile Remove="Data\Migrations\20220116211726_addcoment.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220116212149_addcomment.cs" />
+    <Compile Remove="Data\Migrations\20220116212149_addcomment.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220118163235_testvaluenumber.cs" />
+    <Compile Remove="Data\Migrations\20220118163235_testvaluenumber.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220123125908_markdountest.cs" />
+    <Compile Remove="Data\Migrations\20220123125908_markdountest.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.21" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.21" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.22" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Westwind.AspNetCore.Markdown" Version="3.7.0" />
+  </ItemGroup>
+
+</Project>

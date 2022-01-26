@@ -1,0 +1,63 @@
+﻿@using Markdig
+@using Diplom2.ViewModels
+@model HomeIndexView
+@{
+    ViewData["Title"] = "Home Page";
+}
+<section class="mb-4">
+    @foreach (var tag in Model.TagsIndex)
+    {
+        <a class="btn btn-outline-primary" asp-controller="Home" asp-action="SortTag" asp-route-tagid="@tag.TagId">@tag.Name</a>
+    }
+</section>
+<hr />
+<section class="mb-4">
+    <h3 class="text-center">last added items</h3>
+    <div class="row">
+        @foreach (var item in Model.ItemsIndex)
+        {
+            <div class="card-item col-4 mb-1  col-md-6 col-lg-4">
+                <div class="card-box pt-4">
+                    <h5 class="card-subtitle align-center pb-4 mbr-fonts-style display-7">@item.Collection.Theme</h5>
+                    <h4 class="card-title align-center pb-1 mbr-bold mbr-fonts-style display-5">@item.ItemName</h4>
+                    <p class="card-subtitle align-center pb-1 mbr-bold mbr-fonts-style display-5">Like - @item.Likes.Count()</p>
+                    <p class="card-subtitle align-center pb-1 mbr-bold mbr-fonts-style display-5">Collection - @item.Collection.CollectionName</p>
+                    <h5 class="link align-center mbr-fonts-style display-7">
+                        <a asp-controller="Item" asp-action="Details" asp-route-id="@item.ItemId" class="text-black">
+                            More details
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<hr />
+<section class="mb-4">
+    <h3 class="text-center">Top collections</h3>
+    <div class="row">
+        @foreach (var item in Model.CollectionsIndex)
+        {
+            <div class="card col-4 col-md-6 col-lg-4">
+                <div class="card-img">
+                    <img src="@item.PhotoURL" alt="image">
+                </div>
+                <div class="card-box pt-4">
+                    <h5 class="card-subtitle align-center pb-4 mbr-fonts-style display-7">@item.Theme</h5>
+                    <h4 class="card-title align-center pb-1 mbr-bold mbr-fonts-style display-5">@item.CollectionName</h4>
+                    <div class="mbr-text align-center pb-3 mbr-fonts-style display-7">
+                        @Html.Raw(Markdown.ToHtml(item.ShortDescription))
+                    </div>
+                    <p class="card-subtitle align-center pb-1 mbr-bold mbr-fonts-style display-5">Author - @item.ApplicationUser.UserName</p>
+                    <p class="card-subtitle align-center pb-1 mbr-bold mbr-fonts-style display-5">Items - @item.Items.Count()</p>
+                    <h5 class="link align-center mbr-fonts-style display-7">
+                        <a asp-controller="Collections" asp-action="Details" asp-route-id="@item.CollectionId" class="text-black">
+                            More details
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+

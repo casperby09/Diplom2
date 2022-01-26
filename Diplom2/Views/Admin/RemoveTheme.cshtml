@@ -1,0 +1,19 @@
+﻿@using Diplom2.Models
+@model IEnumerable<Theme>
+@{
+    ViewData["Title"] = "Remove theme";
+}
+
+<form method="post" asp-action="RemoveTheme">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    @foreach(var theme in Model)
+    {
+        <div class="form-group row">
+        <div class="col-sm-1">
+            <input class="form-control" type="checkbox" id="theme_@theme.ThemeId" name="themeremove" value="@theme.ThemeName"/>
+        </div>
+        <label class="col-sm-2 col-form-label" for="theme_@theme.ThemeId">@theme.ThemeName</label>
+        </div>
+    }
+    <button class="btn btn-success" type="submit" id="submit">Remove</button>
+</form>

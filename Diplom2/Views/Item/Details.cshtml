@@ -1,0 +1,236 @@
+﻿@using Diplom2.Models
+@using Markdig
+@using System.Globalization
+@model Item
+@{
+    ViewData["Title"] = "Detail item";
+}
+@if(User.Identity.IsAuthenticated && User.Identity.Name == @Model.Collection.ApplicationUser.UserName || User.IsInRole("admin"))
+{
+    <div class="row mb-2 col-sm-6">
+    <a class="btn btn-danger mr-1" asp-controller="Item" asp-action="Delete" asp-route-id="@Model.ItemId">Delete item</a>
+    <a class="btn btn-success" asp-controller="Item" asp-action="Edit" asp-route-id="@Model.ItemId">Edit item</a>
+    </div>
+}
+@section Links {
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+}
+
+@foreach (var tag in Model.Tags)
+{
+    <a class="btn btn-outline-primary" asp-controller="Home" asp-action="SortTag" asp-route-tagid="@tag.TagId">@tag.Tag.Name</a>
+}
+<hr />
+<div class="row">
+    <div class="col-sm-2">Name</div>
+    <div class="col-sm-6">@Model.ItemName</div>
+</div>
+@foreach (var number in Model.ValueNumbers)
+{
+    <div class="row">
+        <div class="col-sm-2">@number.Number.Name</div>
+        <div class="col-sm-6">@number.Value</div>
+    </div>
+}
+@foreach (var line in Model.ValueLines)
+{
+    <div class="row">
+        <div class="col-sm-2">@line.Line.Name</div>
+        <div class="col-sm-6">@line.Value</div>
+    </div>
+}
+@foreach (var text in Model.ValueTexts)
+{
+    <div class="row">
+        <div class="col-sm-2">@text.Text.Name</div>
+        <div class="col-sm-6">@Html.Raw(Markdown.ToHtml(text.Value))</div>
+    </div>
+}
+@foreach (var date in Model.ValueDates)
+{
+    <div class="row">
+        <div class="col-sm-2">@date.Date.Name</div>
+        <div class="col-sm-6">@date.Value.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)</div>
+    </div>
+}
+@foreach (var logical in Model.ValueLogicals)
+{
+    <div class="row">
+        <div class="col-sm-2">@logical.Logical.Name</div>
+
+        @if (logical.Value == true)
+        {
+            <div class="col-sm-6">Yes</div>
+        }
+        else
+        {
+            <div class="col-sm-6">No</div>
+        }
+    </div>
+}
+@{
+    if (!User.Identity.IsAuthenticated)
+    {
+        <i class="glyphicon glyphicon-heart">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
+            </svg>
+            <span>(@Model.Likes.Count())</span>
+        </i>
+    }
+    else if (Model.Likes.Any(a => a.User == ViewBag.User))
+    {
+        <a href="javascript:void(0)" class="unlike">
+            <i class="glyphicon glyphicon-heart text-danger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
+                </svg>
+                <span>(@Model.Likes.Count())</span>
+            </i>
+        </a>
+    }
+    else
+    {
+        <a href="javascript:void(0)" class="like">
+            <i class="glyphicon glyphicon-heart-empty">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
+                </svg><span>(@Model.Likes.Count())</span>
+            </i>
+        </a>
+    }
+}
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Comments
+            </div>
+            <div class="panel-body comments">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <textarea class="form-control textcomment" maxlength=200 placeholder="Comment" rows="5"></textarea>
+                    <br>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a class="small pull-left" href="">LogIn</a>
+                    }
+                    <a class="btn btn-info pull-right sendcomment"
+                data-itemid="@Model.ItemId" data-username="@User.Identity.Name">Send</a>
+                    <div class="clearfix"></div>
+                }
+                <hr>
+                <div class="updatelist">
+                    <ul class="media-list commentul">
+                        @foreach (var coment in Model.Comments.Reverse())
+                        {
+                            <li class="media">
+                                <div class="comment">
+                                    <div class="media-body">
+                                        <strong class="text-success">@coment.User.UserName</strong>
+                                        <span class="text-muted">
+                                            <small class="text-muted">@coment.DateTime</small>
+                                        </span>
+                                        <p>@coment.Description</p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+<script>
+    $(document).ready(function () {
+        //LIKE
+        $(document).on("click", "a.like", function () {
+            var link = "/Home/LikeThis/" + @Model.ItemId;
+            var a = $(this);
+            $.ajax({
+                type: "GET",
+                url: link,
+                success: function (result) {
+                    a.html('<span class="glyphicon glyphicon-heart text-danger"></span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path></svg> (' + result + ')').removeClass("like").addClass("unlike");
+                }
+            });
+        });
+        //UNLIKE
+        $(document).on("click","a.unlike",function () {
+            var link = "/Home/UnlikeThis/" + @Model.ItemId;
+            var a = $(this);
+            $.ajax({
+                type: "GET",
+                url: link,
+                success: function (result) {
+                    a.html('<span class="glyphicon glyphicon-heart text-danger"></span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path></svg> (' + result + ')').removeClass("unlike").addClass("like");
+                }
+            });
+        });
+        
+    });
+    //Comment
+    $(".sendcomment").on("click", function () {
+            var itemId = $(this).data("itemid");
+            var userName = $(this).data("username"); 
+            var a = $(".commentul");
+            var commenttext = $(".textcomment").val();
+            var textarea = $(".textcomment");
+            if(commenttext != "")
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("SendComment", "Item")",
+                    data: 
+                    {
+                        userName: userName,
+                        itemId: itemId,
+                        text: commenttext,
+                    },
+                    success: function (result) {
+                        var li = document.createElement("li");
+                        li.classList.add("media");
+                        var divcomment = document.createElement("div");
+                        divcomment.classList.add("comment");
+                        var clear = document.createElement("div");
+                        clear.classList.add("clearfix");
+                        var divbody = document.createElement("div");
+                        divbody.classList.add("media-body");
+                        divbody.innerHTML = '<strong class="text-success">'+userName+'</strong><span class="text-muted"><small class="text-muted">'+result+'</small></span><p>'+commenttext+'</p>';
+                        divcomment.append(divbody);
+                        divcomment.append(clear);
+                        li.append(divcomment);
+                        a.prepend(li);
+                    },
+                    error: function(){
+                        var li = document.createElement("li");
+                        li.classList.add("media");
+                        li.innerHTML = '<div class="alert alert-danger" role="alert">Error</div>';
+                        a.prepend(li);
+                    }
+                });
+            }
+            else{
+                var li = document.createElement("li");
+                li.classList.add("media");
+                li.innerHTML = '<div class="alert alert-danger" role="alert">Error</div>';
+                a.prepend(li);
+            }
+            textarea[0].value = "";
+        });
+    //UPDATE COMMENT
+    setInterval(() => {
+        $.get(@Model.ItemId).then(function(html) {
+            
+        var list = $(".commentul", html); 
+        $(".updatelist").html(list); 
+    });
+    }, 5000); 
+</script>
+}

@@ -1,0 +1,25 @@
+﻿@using Diplom2.Models
+@model IEnumerable<Item>
+
+@{
+    ViewData["Title"] = "Items-" + @ViewBag.Title;
+}
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">link</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.ItemName</th>
+                <td><a asp-controller="Item" asp-action="details" asp-route-id="@item.ItemId">More</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />

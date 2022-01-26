@@ -1,0 +1,39 @@
+﻿@using Markdig
+@model IEnumerable<Diplom2.Models.Collection>
+@{
+    ViewData["Title"] = "Collections";
+}
+
+<section>
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="card col-4 col-md-6 col-lg-4">
+                    <div class="card-img">
+                        <img src="@item.PhotoURL" alt="image">
+                    </div>
+                    <div class="card-box pt-4">
+                        <h5 class="card-subtitle align-center pb-4 mbr-fonts-style display-7">@item.Theme</h5>
+                        <h4 class="card-title align-center pb-1 mbr-bold mbr-fonts-style display-5">
+                            @item.CollectionName
+                        </h4>
+                        <div class="mbr-text align-center pb-3 mbr-fonts-style display-7">
+                           @Html.Raw(Markdown.ToHtml(item.ShortDescription))
+                        </div>
+                        <h5 class="link align-center mbr-fonts-style display-7">
+                            <a asp-controller="Collections" asp-action="Details" asp-route-id="@item.CollectionId" class="text-black">
+                                More details
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
+
+    <a class="btn btn-secondary btn-lg btn-block" asp-route-id="@ViewBag.UserId" asp-controller="Collections" asp-action="Create">+ Add new collection</a>
+
+

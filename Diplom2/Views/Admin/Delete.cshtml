@@ -1,0 +1,12 @@
+﻿@using Diplom2.Models
+@model ApplicationUser
+@{
+    ViewData["Title"] = "Delete user" + @Model.UserName;
+}
+
+<h2>Delete user @Model.UserName ?</h2>
+<form method="post" asp-action="DeleteUser" asp-route-id="@Model.Id">
+    <div class="row">
+    <button class="btn btn-danger" type="submit">Delete</button> 
+    </div>
+</form>

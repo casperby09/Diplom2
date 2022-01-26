@@ -1,0 +1,12 @@
+﻿@model Diplom2.Models.Item
+@{
+    ViewData["Title"] = "Detail item" + @Model.ItemId;
+}
+<form method="post"asp-action="DeleteItem" asp-route-id="@Model.ItemId">
+    <div class="row">
+    <h2>Delete item @Model.ItemName</h2>
+    </div>
+    <div class="row">
+    <button class="btn btn-danger" type="submit">Delete</button> 
+    </div>
+</form>

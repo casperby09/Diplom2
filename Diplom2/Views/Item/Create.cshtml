@@ -1,0 +1,158 @@
+﻿@model Diplom2.Models.Collection
+@{
+    ViewData["Title"] = "Create Item";
+}
+
+<form autocomplete="off" method="post">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="itemName">Name :</label>
+        <div class="col-sm-6">
+            <input class="form-control" id="itemName" type="text" name="itemName" required />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="itemName">Tags</label>
+        <div class="col-sm-6">
+            <div class="autocomplete" data-no-enter="true" data-type-zone-class="form-control type-zone" data-tags-input-name="tags" id="tagBox"></div>
+        </div>
+        <div style="font-size: 0.8rem" class="col-sm-3">
+            After entering a tag, press the spacebar to add a new tag
+        </div>
+    </div>
+    @foreach (var item in Model.Numbers)
+    {
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="number_@item.Id">@item.Name :</label>
+            <div class="col-sm-6">
+                <input class="form-control" id="number_@item.Id" type="number" step="any" name="number_@item.Id" required />
+            </div>
+        </div>
+    }
+    @foreach (var item in Model.Lines)
+    {
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="lines_@item.Id">@item.Name :</label>
+            <div class="col-sm-6">
+                <input class="form-control" id="lines_@item.Id" type="text" name="line_@item.Id" required />
+            </div>
+        </div>
+    }
+    @foreach (var item in Model.Texts)
+    {
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="text_@item.Id">@item.Name :</label>
+            <div class="col-sm-6">
+                <textarea rows="3" class="form-control" id="text_@item.Id" type="text" placeholder="Markdown text" name="text_@item.Id" required></textarea>
+            </div>
+        </div>
+    }
+    @foreach (var item in Model.Dates)
+    {
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="date_@item.Id">@item.Name :</label>
+            <div class="col-sm-6">
+                <input class="form-control" id="date_@item.Id" type="date" name="date_@item.Id" required />
+            </div>
+        </div>
+    }
+    @foreach (var item in Model.Logicals)
+    {
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="logical_@item.Id">@item.Name :</label>
+            <div class="col-sm-1">
+                <input class="form-control" id="logical_@item.Id" value="true" type="checkbox" name="logical_@item.Id" />
+            </div>
+        </div>
+    }
+    <div class="form-group">
+        <button asp-route-idCollection="@Model.CollectionId" class="btn btn-success" type="submit" id="submit">Add new item</button>
+    </div>
+</form>
+@foreach (var item in ViewBag.TagNames)
+{
+    <div class="tag-list" hidden>@item</div>
+}
+
+
+@section Scripts{
+<script src="~/js/tagging.min.js"></script>
+<script>
+    $("#tagBox").tagging();
+</script>
+<script>
+    var countries = [];
+    var divtag = document.querySelectorAll(".tag-list");
+    divtag.forEach(element => countries.push(element.innerHTML));
+    function autocomplete(inp, arr) {
+        var currentFocus;
+        console.log(inp)
+        inp.addEventListener("input", function(e) {
+            var a, b, i, val = this.value;
+            closeAllLists();
+            if (!val) { return false;}
+            currentFocus = -1;
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            this.parentNode.appendChild(a);
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    b = document.createElement("DIV");
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    b.addEventListener("click", function(e) {
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+        inp.addEventListener("keydown", function(e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                currentFocus++;
+                addActive(x);
+            } else if (e.keyCode == 38) {
+                currentFocus--;
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                e.preventDefault();
+                if (currentFocus > -1) {
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+        function addActive(x) {
+            if (!x) return false;
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+            }
+        }
+        function closeAllLists(elmnt) {
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+    }
+    var inp = document.querySelectorAll(".type-zone");
+    inp.forEach(element => activetag(element));
+    function activetag (inp){
+        autocomplete(inp, countries);
+    }    
+</script>
+}
