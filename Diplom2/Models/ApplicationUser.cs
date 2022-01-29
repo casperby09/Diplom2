@@ -16,5 +16,7 @@ namespace Diplom2.Models
         public virtual ICollection<Like> Likes { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual bool ThemeSite { get; set; }
     }
 }

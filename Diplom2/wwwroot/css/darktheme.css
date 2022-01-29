@@ -1,5 +1,12 @@
-﻿body, .row .card-item, .comments textarea, .form-control, input[type=text], .bg-white, a, .navbar-light .navbar-brand,
-.navbar-light .navbar-nav .nav-link, tr {
+﻿body, .row .card-item, .comments textarea, .form-control, input[type=text], .bg-white, .navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link, tr, .main-section, .autocomplete-items div {
     background-color: #19191A !important;
     color: #fff !important;
+}
+hr {
+    border-top: 1px solid #fff;
+}
+.autocomplete-items div.autocomplete-active {
+    font-size: 1.2rem;
+    color: blue !important;
 }

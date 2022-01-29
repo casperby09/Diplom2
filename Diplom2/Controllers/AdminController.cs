@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 
 namespace Diplom2.Controllers
 {
-    [Authorize(Policy = "Status")]
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {

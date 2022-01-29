@@ -17,7 +17,6 @@ using System.Threading.Tasks;
 
 namespace Diplom2.Controllers
 {
-    [Authorize(Policy = "Status")]
     public class HomeController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -141,6 +140,7 @@ namespace Diplom2.Controllers
         {
             var item = _context.Items
                 .Include(u => u.Likes)
+                    .ThenInclude(u => u.User)
                 .FirstOrDefault(a => a.ItemId == id);
             var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var like = item.Likes.FirstOrDefault(u => u.User.Id == currentUserId);
@@ -163,10 +163,10 @@ namespace Diplom2.Controllers
 
         public string UnlikeThis(int id)
         {
-            var item = _context.Items.Include(u => u.Likes).FirstOrDefault(a => a.ItemId == id);
+            var item = _context.Items.Include(u => u.Likes).ThenInclude(u => u.User).FirstOrDefault(a => a.ItemId == id);
             var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var like = item.Likes.FirstOrDefault(u => u.User.Id == currentUserId);
-            if (like == null)
+            if (like != null)
             {
                 if (User.Identity.IsAuthenticated)
                 {
@@ -179,6 +179,25 @@ namespace Diplom2.Controllers
                 }
             }
             return item.Likes.Count().ToString();
+        }
+
+        public async Task<bool> ThemeSite(bool themebool)
+        {
+            var user = _context.ApplicationUsers.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            if(user == null)
+                return false;
+            if(themebool)
+            {
+                user.ThemeSite = true;
+                await _signInManager.SignInAsync(user, isPersistent: false);
+            }
+            else
+            {
+                user.ThemeSite = false;
+                await _signInManager.SignInAsync(user, isPersistent: false);
+            }
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

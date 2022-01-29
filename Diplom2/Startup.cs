@@ -48,22 +48,15 @@ namespace Diplom2
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddAuthorization(opts =>
-            {
-                opts.AddPolicy("Status", policy =>
-                {
-                    policy.RequireClaim("Status", "False");
-                });
-            });
-
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
             services.AddScoped<ApplicationDbContext, ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment env, ApplicationDbContext db)
+        public void Configure(IApplicationBuilder app, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment env)
         {
             
 
@@ -82,22 +75,9 @@ namespace Diplom2
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            
             app.UseAuthentication();
             app.UseAuthorization();
-
-            
-
-            app.Use(async (context, next) =>
-            {
-                if(context.User.Identity.IsAuthenticated)
-                {
-                    var userStatus = context.User.FindFirst("Status").Value;
-                    if (userStatus != null && userStatus == "True")
-                        await signInManager.SignOutAsync();
-                }
-                await next.Invoke();
-            });
 
             app.UseEndpoints(endpoints =>
             {

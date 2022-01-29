@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace Diplom2.Controllers
 {
-    [Authorize(Policy = "Status")]
     public class ItemController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

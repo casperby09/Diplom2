@@ -18,10 +18,16 @@ namespace Diplom2
         public override async Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
         {
             var principal = await base.CreateAsync(user);
-            ((ClaimsIdentity)principal.Identity).AddClaims(new[]
+            if(principal.FindFirst("ThemeSite") != null)
+                ((ClaimsIdentity)principal.Identity).RemoveClaim(principal.FindFirst("ThemeSite"));
+            else
             {
-            new Claim("Status", user.Status.ToString()),
-        });
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[]
+                {
+                    
+                    new Claim("ThemeSite", user.ThemeSite.ToString()),
+                });
+            }
             return principal;
         }
     }

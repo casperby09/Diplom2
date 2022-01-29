@@ -88,10 +88,15 @@ namespace Diplom2.Areas.Identity.Pages.Account
                     if (userStatus == true)
                     {
                         ModelState.AddModelError(string.Empty, "You status Lock");
+                        await _signInManager.SignOutAsync();
                         return Page();
                     }
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    else
+                    {
+                        _logger.LogInformation("User logged in.");
+                        return LocalRedirect(returnUrl);
+                    }
+                    
                 }
                 if (result.RequiresTwoFactor)
                 {
