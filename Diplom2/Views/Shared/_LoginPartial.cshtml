@@ -5,6 +5,16 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        <li class="nav-item">
+            @if (User.Identity.IsAuthenticated && User.FindFirst("ThemeSite").Value == "True")
+            {
+                <a class="nav-link text-dark" onclick="return themesite(this)" href="#">Light theme</a>
+            }
+            else
+            {
+                <a class="nav-link text-dark" onclick="return themesite(this)" href="#">Dark theme</a>
+            }
+        </li>
         @if (User.IsInRole("user"))
         {
             <li class="nav-item">
@@ -25,6 +35,7 @@
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>
+        
     }
     else
     {

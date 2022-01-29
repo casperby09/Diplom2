@@ -34,18 +34,6 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                     <ul class="navbar-nav flex-grow-2">
-                        <li class="nav-item">
-                            @if (User.Identity.IsAuthenticated && User.FindFirst("ThemeSite").Value == "True")
-                            {
-                                <a class="nav-link text-dark" onclick = "return themesite(this)" href="#">Light theme</a>
-                            }
-                            else{
-                                <a class="nav-link text-dark" onclick = "return themesite(this)" href="#">Dark theme</a>
-                            }
-                                
-                        </li>
-                    </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <li>
                             <form asp-controller="Home" asp-action="Search" method="get">
