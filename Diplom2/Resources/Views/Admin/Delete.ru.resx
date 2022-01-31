@@ -117,46 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Button-add-date" xml:space="preserve">
-    <value>Добавить поле даты</value>
-  </data>
-  <data name="Button-add-number" xml:space="preserve">
-    <value>Добавить числовое поле</value>
-  </data>
-  <data name="Button-add-string" xml:space="preserve">
-    <value>Добавить строковое поле</value>
-  </data>
-  <data name="Button-add-text" xml:space="preserve">
-    <value>Добавить текстовое поле</value>
-  </data>
-  <data name="Button-boolean" xml:space="preserve">
-    <value>Добавить поле чекбокса</value>
-  </data>
-  <data name="Button-create" xml:space="preserve">
-    <value>Создать новую коллекцию</value>
-  </data>
-  <data name="Button-delete" xml:space="preserve">
+  <data name="Button-Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="Description-string" xml:space="preserve">
-    <value>Краткое описание</value>
-  </data>
-  <data name="Field-add" xml:space="preserve">
-    <value>Добавить свои поля</value>
-  </data>
-  <data name="Image-string" xml:space="preserve">
-    <value>Загрузить изображение</value>
-  </data>
-  <data name="Name-string" xml:space="preserve">
-    <value>Имя</value>
-  </data>
-  <data name="Placeholder-text" xml:space="preserve">
-    <value>Поддерживает Markdown</value>
-  </data>
-  <data name="Theme-string" xml:space="preserve">
-    <value>Тема</value>
-  </data>
   <data name="Title" xml:space="preserve">
-    <value>Создать коллекцию</value>
+    <value>Удалить пользователя</value>
   </data>
 </root>

@@ -1,13 +1,13 @@
 ﻿@model Diplom2.Models.Collection
 @{
-    ViewData["Title"] = "Detail collection" + @Model.CollectionId;
+    ViewData["Title"] = @Localizer["Title"].Value.ToString() + "-" + @Model.CollectionId;
 }
 <form method="post"asp-action="DeleteCollection" asp-route-id="@Model.CollectionId">
     <div class="row">
-    <h2>Delete collection @Model.CollectionName</h2>
+    <h2>@Localizer["Title"] @Model.CollectionName</h2>
     </div>
     <div class="row">
-    <button class="btn btn-danger" type="submit">Delete</button> 
+    <button class="btn btn-danger" type="submit">@Localizer["Button-delete"]</button> 
     </div>
 </form>
 

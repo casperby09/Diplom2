@@ -1,21 +1,21 @@
 ﻿@using Diplom2.Models
 @model IEnumerable<Item>
 @{
-    ViewData["Title"] = "Detail collection";
+    ViewData["Title"] = @Localizer["Title"];
 }
 @if(User.Identity.IsAuthenticated && User.Identity.Name == ViewBag.UserName || User.IsInRole("admin"))
 {
     <div class="row mb-2 col-sm-6">
-    <a class="btn btn-danger mr-1" asp-controller="Collections" asp-action="Delete" asp-route-id="@ViewBag.Id">Delete collection</a>
-    <a class="btn btn-success" asp-controller="Collections" asp-action="Edit" asp-route-id="@ViewBag.Id">Edit collection</a>
+    <a class="btn btn-danger mr-1" asp-controller="Collections" asp-action="Delete" asp-route-id="@ViewBag.Id">@Localizer["Button-delete"]</a>
+    <a class="btn btn-success" asp-controller="Collections" asp-action="Edit" asp-route-id="@ViewBag.Id">@Localizer["Button-edit"]</a>
     </div>
 }
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Link</th>
+            <th scope="col">@Localizer["Name-string"]</th>
+            <th scope="col">@Localizer["Link-string"]</th>
         </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@
         {
             <tr>
                 <th scope="row">@item.ItemName</th>
-                <td><a asp-controller="Item" asp-action="details" asp-route-id="@item.ItemId">More</a></td>
+                <td><a asp-controller="Item" asp-action="details" asp-route-id="@item.ItemId">@Localizer["More-string"]</a></td>
             </tr>
         }
     </tbody>
@@ -32,7 +32,7 @@
 @{
     if(User.Identity.IsAuthenticated && User.Identity.Name == ViewBag.UserName || User.IsInRole("admin"))
     {
-        <a class="btn btn-secondary btn-lg btn-block" asp-controller="Item" asp-action="Create" asp-route-id="@ViewBag.Id">+ Add new item</a>
+        <a class="btn btn-secondary btn-lg btn-block" asp-controller="Item" asp-action="Create" asp-route-id="@ViewBag.Id">@Localizer["Button-add-item"]</a>
     }
 }
 

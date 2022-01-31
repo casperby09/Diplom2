@@ -1,7 +1,7 @@
 ﻿@using Markdig
 @model IEnumerable<Diplom2.Models.Collection>
 @{
-    ViewData["Title"] = "Collections";
+    ViewData["Title"] = @Localizer["Title"];
 }
 
 <section>
@@ -23,7 +23,7 @@
                         </div>
                         <h5 class="link align-center mbr-fonts-style display-7">
                             <a asp-controller="Collections" asp-action="Details" asp-route-id="@item.CollectionId" class="text-black">
-                                More details
+                                @Localizer["Button-more"]
                             </a>
                         </h5>
                     </div>
@@ -34,6 +34,6 @@
     </div>
 </section>
 
-    <a class="btn btn-secondary btn-lg btn-block" asp-route-id="@ViewBag.UserId" asp-controller="Collections" asp-action="Create">+ Add new collection</a>
+    <a class="btn btn-secondary btn-lg btn-block" asp-route-id="@ViewBag.UserId" asp-controller="Collections" asp-action="Create">@Localizer["Button-add-collection"]</a>
 
 

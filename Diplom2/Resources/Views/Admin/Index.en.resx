@@ -117,46 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Button-add-date" xml:space="preserve">
-    <value>Добавить поле даты</value>
-  </data>
-  <data name="Button-add-number" xml:space="preserve">
-    <value>Добавить числовое поле</value>
-  </data>
-  <data name="Button-add-string" xml:space="preserve">
-    <value>Добавить строковое поле</value>
-  </data>
-  <data name="Button-add-text" xml:space="preserve">
-    <value>Добавить текстовое поле</value>
-  </data>
-  <data name="Button-boolean" xml:space="preserve">
-    <value>Добавить поле чекбокса</value>
-  </data>
-  <data name="Button-create" xml:space="preserve">
-    <value>Создать новую коллекцию</value>
+  <data name="Button-add-theme" xml:space="preserve">
+    <value>Add new theme collections</value>
   </data>
   <data name="Button-delete" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Delete</value>
   </data>
-  <data name="Description-string" xml:space="preserve">
-    <value>Краткое описание</value>
+  <data name="Button-link" xml:space="preserve">
+    <value>Collections user</value>
   </data>
-  <data name="Field-add" xml:space="preserve">
-    <value>Добавить свои поля</value>
+  <data name="Button-lock" xml:space="preserve">
+    <value>Lock</value>
   </data>
-  <data name="Image-string" xml:space="preserve">
-    <value>Загрузить изображение</value>
+  <data name="Button-remove-theme" xml:space="preserve">
+    <value>Remove theme collections</value>
   </data>
-  <data name="Name-string" xml:space="preserve">
-    <value>Имя</value>
+  <data name="Button-role" xml:space="preserve">
+    <value>Add/Remove</value>
   </data>
-  <data name="Placeholder-text" xml:space="preserve">
-    <value>Поддерживает Markdown</value>
+  <data name="Button-unlock" xml:space="preserve">
+    <value>Unlock</value>
   </data>
-  <data name="Theme-string" xml:space="preserve">
-    <value>Тема</value>
+  <data name="Table-collections" xml:space="preserve">
+    <value>Quantity collections</value>
+  </data>
+  <data name="Table-link" xml:space="preserve">
+    <value>Link collections user</value>
+  </data>
+  <data name="Table-name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Table-role" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Table-status" xml:space="preserve">
+    <value>Status</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Создать коллекцию</value>
+    <value>Admin panel</value>
   </data>
 </root>

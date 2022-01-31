@@ -1,23 +1,23 @@
 ﻿@using Diplom2.ViewModels
 @model IEnumerable<AdminIndexView>
 @{
-    ViewData["Title"] = "Admin panel";
+    ViewData["Title"] = @Localizer["Title"];
 }
 <div class="mb-3">
-    <a class="btn btn-primary" asp-action="AddTheme">Add new theme collections</a>
-<a class="btn btn-primary" asp-action="RemoveTheme">Remove theme collections</a>
+    <a class="btn btn-primary" asp-action="AddTheme">@Localizer["Button-add-theme"]</a>
+<a class="btn btn-primary" asp-action="RemoveTheme">@Localizer["Button-remove-theme"]</a>
 </div>
 
 <table class="table">
     <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
+            <th>@Localizer["Table-name"]</th>
             <th>Email</th>
-            <th>Status</th>
-            <th>Role</th>
-            <th>Quantity collections</th>
-            <th>Link collections user</th>
+            <th>@Localizer["Table-status"]</th>
+            <th>@Localizer["Table-role"]</th>
+            <th>@Localizer["Table-collections"]</th>
+            <th>@Localizer["Table-link"]</th>
         </tr>
     </thead>
     <tbody>
@@ -30,13 +30,13 @@
                 <td>
                     @if(user.Status == true)
                     {
-                        <a class="btn btn-success btn-block" asp-controller="Admin" asp-action="UnlockUser" asp-route-id="@user.Id">Unblock</a>
+                        <a class="btn btn-success btn-block" asp-controller="Admin" asp-action="UnlockUser" asp-route-id="@user.Id">@Localizer["Button-unlock"]</a>
                     }
                     else
                     {
-                        <a class="btn btn-secondary btn-block" asp-controller="Admin" asp-action="LockUser" asp-route-id="@user.Id">Lock</a>
+                        <a class="btn btn-secondary btn-block" asp-controller="Admin" asp-action="LockUser" asp-route-id="@user.Id">@Localizer["Button-lock"]</a>
                     }
-                    <a class="btn btn-danger btn-block" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                    <a class="btn btn-danger btn-block" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id">@Localizer["Button-delete"]</a>
                 </td>
                 <td>
                     @foreach(var role in user.Role)
@@ -44,11 +44,11 @@
                         <div>@role</div>
                     }
                     
-                     <a class="btn btn-success btn-block" asp-controller="Admin" asp-action="AddRole" asp-route-id="@user.Id">Add/Remove</a>
+                     <a class="btn btn-success btn-block" asp-controller="Admin" asp-action="AddRole" asp-route-id="@user.Id">@Localizer["Button-role"]</a>
                 </td>
                 <td>@user.QuantityCollectionsUser</td>
                 <td>
-                    <a asp-controller="Collections" asp-action="Index" asp-route-id="@user.Id">Collection user</a>
+                    <a asp-controller="Collections" asp-action="Index" asp-route-id="@user.Id">@Localizer["Button-link"]</a>
                 </td>
             </tr>
         }

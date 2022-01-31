@@ -1,9 +1,9 @@
 ﻿@using Diplom2.ViewModels
 @model AdminAddRole
 @{
-    ViewData["Title"] = "Role user" + @Model.User.UserName;
+    ViewData["Title"] = @Localizer["Title"].Value.ToString() + " " + @Model.User.UserName;
 }
-<h2>Role user @Model.User.UserName</h2>
+<h2>@Localizer["Title"] @Model.User.UserName</h2>
 <form method="post" asp-action="AddRolePost" asp-route-id="@Model.User.Id">
     @foreach(var role in Model.Role)
     {
@@ -22,5 +22,5 @@
             </div>
         }
     }
-    <button type="submit">Save</button>
+    <button type="submit">@Localizer["Button-save"]</button>
 </form>

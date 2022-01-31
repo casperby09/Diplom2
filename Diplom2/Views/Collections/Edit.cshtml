@@ -1,6 +1,6 @@
 ﻿@model Diplom2.Models.Collection
 @{
-    ViewData["Title"] = "Edit Collection";
+    ViewData["Title"] = @Localizer["Title"];
 }
 @section Links{
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
@@ -9,19 +9,19 @@
 
 <form method="post" enctype="multipart/form-data" asp-route-id="@Model.CollectionId">
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="collectionName">Name:</label>
+        <label class="col-sm-2 col-form-label" for="collectionName">@Localizer["Name-string"]</label>
         <div class="col-sm-6">
             <input class="form-control" id="collectionName" value="@Model.CollectionName" type="text" name="collectionName" required />
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="shortDescription">Short description:</label>
+        <label class="col-sm-2 col-form-label" for="shortDescription">@Localizer["Description-string"]</label>
         <div class="col-sm-6">
             <textarea id="shortDescription" class="form-control" maxlength=255 rows="3" name="shortDescription" required>@Model.ShortDescription</textarea>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="theme">Theme:</label>
+        <label class="col-sm-2 col-form-label" for="theme">@Localizer["Theme-string"]</label>
         <div class="col-sm-6">
             <select class="form-control" name="theme" id="theme" size="1" required>
                 <option></option>
@@ -41,7 +41,7 @@
     </div>
     <div class="main-section">
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="uploadImage">Upload image</label>
+            <label class="col-sm-2 col-form-label" for="uploadImage">@Localizer["Image-string"]</label>
             <div class=" file-loading">
                 <input id="file-1" name="file" type="file" class="file" data-overwrite-initial="false" data-min-file-count="1">
             </div>
@@ -51,17 +51,17 @@
         </div>
     </div>
     <div class="form-group">
-        <div>Add your fields:</div>
+        <div>@Localizer["Add-field-string"]</div>
     </div>
     <div class="parent" id="number" data-countoffields=@Model.Numbers.Count() data-curfieldnameid=@Model.Numbers.Count()>
         <div class="form-group">
-            <a class="btn btn-primary" onclick="return addField(this)" href="#">Add number field</a>
+            <a class="btn btn-primary" data-btndelete="@Localizer["Button-delete"]" onclick="return addField(this)" href="#">@Localizer["Button-add-number"]</a>
         </div>
         <div id="parentId">
             @foreach(var number in Model.Numbers)
             {
                 <div class="row form-group">
-                    <label class="col-sm-2 col-form-label" for="Number_@number.Id">Field number</label>
+                    <label class="col-sm-2 col-form-label" for="Number_@number.Id">@Localizer["Number-string"]</label>
                     <div class="col-sm-6">
                         <input required class="form-control" value="@number.Name" id="Number_@number.Id" name="Number_@number.Id" type="text"/>
                     </div>
@@ -71,13 +71,13 @@
     </div>
     <div class="parent" id="line" data-countoffields=@Model.Lines.Count() data-curfieldnameid=@Model.Lines.Count()>
         <div class="form-group">
-            <a class="btn btn-primary" onclick="return addField(this)" href="#">Add string field</a>
+            <a class="btn btn-primary" data-btndelete="@Localizer["Button-delete"]" onclick="return addField(this)" href="#">@Localizer["Button-add-string"]</a>
         </div>
         <div id="parentId">
             @foreach(var line in Model.Lines)
             {
                 <div class="row form-group">
-                    <label class="col-sm-2 col-form-label" for="Line_@line.Id">Field number</label>
+                    <label class="col-sm-2 col-form-label" for="Line_@line.Id">@Localizer["String-string"]</label>
                     <div class="col-sm-6">
                         <input required class="form-control" value="@line.Name" id="Line_@line.Id" name="Line_@line.Id" type="text"/>
                     </div>
@@ -87,13 +87,13 @@
     </div>
     <div class="parent" id="text" data-countoffields=@Model.Texts.Count() data-curfieldnameid=@Model.Texts.Count()>
         <div class="form-group">
-            <a class="btn btn-primary" onclick="return addField(this)" href="#">Add text field</a>
+            <a class="btn btn-primary" data-btndelete="@Localizer["Button-delete"]" onclick="return addField(this)" href="#">@Localizer["Button-add-text"]</a>
         </div>
         <div id="parentId">
             @foreach(var text in Model.Texts)
             {
                 <div class="row form-group">
-                    <label class="col-sm-2 col-form-label" for="Text_@text.Id">Field number</label>
+                    <label class="col-sm-2 col-form-label" for="Text_@text.Id">@Localizer["Text-string"]</label>
                     <div class="col-sm-6">
                         <input required class="form-control" value="@text.Name" id="Text_@text.Id" name="Text_@text.Id" type="text"/>
                     </div>
@@ -103,13 +103,13 @@
     </div>
     <div class="parent" id="date" data-countoffields=@Model.Dates.Count() data-curfieldnameid=@Model.Dates.Count()>
         <div class="form-group">
-            <a class="btn btn-primary" onclick="return addField(this)" href="#">Add date field</a>
+            <a class="btn btn-primary" data-btndelete="@Localizer["Button-delete"]" onclick="return addField(this)" href="#">@Localizer["Button-add-date"]</a>
         </div>
         <div id="parentId">
             @foreach(var date in Model.Dates)
             {
                 <div class="row form-group">
-                    <label class="col-sm-2 col-form-label" for="Date_@date.Id">Field number</label>
+                    <label class="col-sm-2 col-form-label" for="Date_@date.Id">@Localizer["Date-string"]</label>
                     <div class="col-sm-6">
                         <input required class="form-control" value="@date.Name" id="Date_@date.Id" name="Date_@date.Id" type="text"/>
                     </div>
@@ -119,13 +119,13 @@
     </div>
     <div class="parent" id="logical" data-countoffields=@Model.Logicals.Count() data-curfieldnameid=@Model.Logicals.Count()>
         <div class="form-group">
-            <a class="btn btn-primary" onclick="return addField(this)" href="#">Add boolean field</a>
+            <a class="btn btn-primary" data-btndelete="@Localizer["Button-delete"]" onclick="return addField(this)" href="#">@Localizer["Button-add-boolean"]</a>
         </div>
         <div id="parentId">
             @foreach(var logical in Model.Logicals)
             {
                 <div class="row form-group">
-                    <label class="col-sm-2 col-form-label" for="Logical_@logical.Id">Field number</label>
+                    <label class="col-sm-2 col-form-label" for="Logical_@logical.Id">@Localizer["Boolean-string"]</label>
                     <div class="col-sm-6">
                         <input required class="form-control" value="@logical.Name" id="Logical_@logical.Id" name="Logical_@logical.Id" type="text"/>
                     </div>
@@ -134,7 +134,7 @@
         </div>
     </div>
     <div class="form-group">
-        <button class="btn btn-success" type="submit" id="submit">Edit collection</button>
+        <button class="btn btn-success" type="submit" id="submit">E@Localizer["Button-edit"]</button>
     </div>
 </form>
 
@@ -163,6 +163,7 @@
         var name = divparent.id;
         var countOfFields = divparent.dataset.countoffields;
         var curFieldNameId = divparent.dataset.curfieldnameid;
+        var deletebutton = a.dataset.btndelete;
 
         if (countOfFields >= maxFieldLimit) {
         alert("Maximum field = " + maxFieldLimit);
@@ -177,28 +178,28 @@
 
         var div = document.createElement("div");
         div.classList.add("row", "form-group");
-         div.innerHTML = '<label class="col-sm-2 col-form-label" for="' + name+ '_' + curFieldNameId + '">Field '+ name +'</label><div class="col-sm-6"><input required class="form-control" id="' + name+ '_' + curFieldNameId + '" name="'+ name+ '_' + curFieldNameId + '" type="text"/></div><a onclick="return deleteField(this)" href="#">Delete</a>';
+         div.innerHTML = '<label class="col-sm-2 col-form-label" for="' + name+ '_' + curFieldNameId + '">Field '+ name +'</label><div class="col-sm-6"><input required class="form-control" id="' + name+ '_' + curFieldNameId + '" name="'+ name+ '_' + curFieldNameId + '" type="text"/></div><a onclick="return deleteField(this)" href="#">' + deletebutton + '</a>';
 
         divparentid.appendChild(div);
         return false;
     }
-</script>
+    </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
-<script>
-    $("#file-1").fileinput({
-    theme: 'fa',
-    uploadUrl: '#',
-    allowedFileExtensions: ['jpg', 'png', 'gif'],
-    overwriteInitial: false,
-    maxFileSize:3000,
-    maxFilesNum: 1,
-    slugCallback: function (filename) {
-    return filename.replace('(', '_').replace(']', '_');
-    }
-    });
-</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+    <script>
+        $("#file-1").fileinput({
+        theme: 'fa',
+        uploadUrl: '#',
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        overwriteInitial: false,
+        maxFileSize:3000,
+        maxFilesNum: 1,
+        slugCallback: function (filename) {
+        return filename.replace('(', '_').replace(']', '_');
+        }
+        });
+    </script>
 
 }
