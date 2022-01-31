@@ -2,7 +2,7 @@
 @model IEnumerable<Theme>
 
 @{
-    ViewData["Title"] = "Create Collection";
+    ViewData["Title"] = @Localizer["Title"];
 }
 
 @section Links{
@@ -13,19 +13,19 @@
 
 <form method="post" enctype="multipart/form-data">
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="collectionName">Name:</label>
+        <label class="col-sm-2 col-form-label" for="collectionName">@Localizer["Name-string"]</label>
         <div class="col-sm-6">
             <input class="form-control" id="collectionName" type="text" name="collectionName" required/>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="shortDescription">Short description:</label>
+        <label class="col-sm-2 col-form-label" for="shortDescription">@Localizer["Description-string"]</label>
         <div class="col-sm-6">
-            <textarea id="shortDescription" class="form-control" placeholder="Markdown text" rows="3" name="shortDescription" required></textarea>
+            <textarea id="shortDescription" class="form-control" placeholder="@Localizer["Placeholder-text"]" rows="3" name="shortDescription" required></textarea>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="theme">Theme:</label>
+        <label class="col-sm-2 col-form-label" for="theme">@Localizer["Theme-string"]</label>
         <div class="col-sm-6">
             <select class="form-control" name="theme" id="theme" size="1" required>
                 <option></option>
@@ -38,53 +38,53 @@
     </div>
     <div class="main-section">
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="uploadImage">Upload image</label>
+        <label class="col-sm-2 col-form-label" for="uploadImage">@Localizer["Image-string"]</label>
         <div class=" file-loading">
             <input required id="file-1" name="file" type="file" class="file" data-overwrite-initial="false" data-min-file-count="1">
         </div>
     </div>
     </div>
     <div class="form-group">
-        <div>Add your fields:</div>
+        <div>@Localizer["Field-add"]</div>
     </div>
     <div class="parent" id="number" data-countoffields=0 data-curfieldnameid=0>
         <div class="form-group">
-            <a class="btn btn-primary" onclick="return addField(this)" href="#">Add number field</a>
+            <a class="btn btn-primary" data-btndelete="@Localizer["Button-delete"]" onclick="return addField(this)" href="#">@Localizer["Button-add-number"]</a>
         </div>
         <div id="parentId"></div>
     </div>
     <div class="parent" id="line" data-countoffields=0 data-curfieldnameid=0>
         <div class="form-group">
-            <a class="btn btn-primary" onclick="return addField(this)" href="#">Add string field</a>
+            <a class="btn btn-primary" data-btndelete="@Localizer["Button-delete"]" onclick="return addField(this)" href="#">@Localizer["Button-add-string"]</a>
         </div>
         <div id="parentId"></div>
     </div>
     <div class="parent" id="text" data-countoffields=0 data-curfieldnameid=0>
         <div class="form-group">
-            <a class="btn btn-primary" onclick="return addField(this)" href="#">Add text field</a>
+            <a class="btn btn-primary" data-btndelete="@Localizer["Button-delete"]" onclick="return addField(this)" href="#">@Localizer["Button-add-text"]</a>
         </div>
         <div id="parentId"></div>
     </div>
     <div class="parent" id="date" data-countoffields=0 data-curfieldnameid=0>
         <div class="form-group">
-            <a class="btn btn-primary" onclick="return addField(this)" href="#">Add date field</a>
+            <a class="btn btn-primary" data-btndelete="@Localizer["Button-delete"]" onclick="return addField(this)" href="#">@Localizer["Button-add-date"]</a>
         </div>
         <div id="parentId"></div>
     </div>
     <div class="parent" id="logical" data-countoffields=0 data-curfieldnameid=0>
         <div class="form-group">
-            <a class="btn btn-primary" onclick="return addField(this)" href="#">Add boolean field</a>
+            <a class="btn btn-primary" onclick="return addField(this)" href="#">@Localizer["Button-boolean"]</a>
         </div>
         <div id="parentId"></div>
     </div>
     <div class="form-group">
         @if(User.IsInRole("admin"))
         {
-            <button asp-route-id="@ViewBag.UserId" class="btn btn-success" type="submit" id="submit">Add new collections</button>
+            <button asp-route-id="@ViewBag.UserId" class="btn btn-success" type="submit" id="submit">@Localizer["Button-create"]</button>
         }
         else
         {
-            <button class="btn btn-success" type="submit" id="submit">Add new collections</button>
+            <button class="btn btn-success" type="submit" id="submit">@Localizer["Button-create"]</button>
         }
         
     </div>
@@ -118,6 +118,7 @@
         var name = divparent.id;
         var countOfFields = divparent.dataset.countoffields;
         var curFieldNameId = divparent.dataset.curfieldnameid;
+        var deletebutton = a.dataset.btndelete;
 
         if (countOfFields >= maxFieldLimit) {
         alert("Maxsimum field = " + maxFieldLimit);
@@ -132,7 +133,7 @@
 
         var div = document.createElement("div");
         div.classList.add("row", "form-group");
-         div.innerHTML = '<label class="col-sm-2 col-form-label" for="' + name+ '_' + curFieldNameId + '">Field '+ name +'</label><div class="col-sm-6"><input required class="form-control" id="' + name+ '_' + curFieldNameId + '" name="'+ name+ '_' + curFieldNameId + '" type="text"/></div><a onclick="return deleteField(this)" href="#">Delete</a>';
+         div.innerHTML = '<label class="col-sm-2 col-form-label" for="' + name+ '_' + curFieldNameId + '">Field '+ name +'</label><div class="col-sm-6"><input required class="form-control" id="' + name+ '_' + curFieldNameId + '" name="'+ name+ '_' + curFieldNameId + '" type="text"/></div><a onclick="return deleteField(this)" href="#">' + deletebutton + '</a>';
 
         divparentid.appendChild(div);
         return false;

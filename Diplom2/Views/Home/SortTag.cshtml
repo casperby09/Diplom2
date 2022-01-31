@@ -2,7 +2,7 @@
 @model IEnumerable<Item>
 
 @{
-    ViewData["Title"] = "Items-" + @ViewBag.Title;
+    ViewData["Title"] = @Localizer["Title-sort"].Value.ToString() + "-" + ViewBag.Title ;
 }
 
 <table class="table">
@@ -17,7 +17,7 @@
         {
             <tr>
                 <th scope="row">@item.ItemName</th>
-                <td><a asp-controller="Item" asp-action="details" asp-route-id="@item.ItemId">More</a></td>
+                <td><a asp-controller="Item" asp-action="details" asp-route-id="@item.ItemId">@Localizer["Button-more"]</a></td>
             </tr>
         }
     </tbody>

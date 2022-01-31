@@ -1,19 +1,24 @@
-﻿function themesite(a) {
+﻿
+function themesite(a) {
     name = a.innerText;
-    if (name == "Light theme") {
+    theme = a.dataset.themedark;
+    nametheme = a.dataset.nametheme;
+    if (theme == "off") {
         ajaxinput(false);
         link = $('link[href="/css/darktheme.css"]');
         link.remove();
-        a.innerText = 'Dark theme';
+        a.dataset.themedark = "on";
     }
-    else if (name == "Dark theme") {
+    else if (theme == "on") {
         ajaxinput(true);
         $link = $('<link/>', {
             rel: 'stylesheet',
             href: '/css/darktheme.css'
         }).appendTo('head');
-        a.innerText = 'Light theme';
+        a.dataset.themedark = "off"
     }
+    a.innerText = nametheme;
+    a.dataset.nametheme = name;
     return false;
 
     function ajaxinput(a) {

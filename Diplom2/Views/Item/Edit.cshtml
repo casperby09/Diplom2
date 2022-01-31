@@ -1,23 +1,24 @@
 ﻿@using Diplom2.Models
 @model Item
 @{
-    ViewData["Title"] = "Edit item";
+    ViewData["Title"] = @Localizer["Title"];
 }
-<h2>Edit item name - @Model.ItemName</h2>
+<h2>@Localizer["Title"] - @Model.ItemName</h2>
 
 <form autocomplete="off" method="post" asp-action="EditItem" asp-route-id="@Model.ItemId">
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="itemName">Name</label>
+        <label class="col-sm-2 col-form-label" for="itemName">@Localizer["Name-string"]</label>
         <div class="col-sm-6">
             <input class="form-control" id="itemName" value="@Model.ItemName" type="text" name="itemName" required />
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="itemName">Tags</label>
+        <label class="col-sm-2 col-form-label" for="itemName">@Localizer["Tags-string"]</label>
         <div class="col-sm-6">
             <div class="autocomplete" data-type-zone-class="form-control type-zone" data-tags-input-name="tags" id="tagBox">@ViewBag.TagsItem</div>
         </div>
+        <div style="font-size: 0.8rem" class="col-sm-3">@Localizer["Tags-help"]</div>
     </div>
     @foreach (var number in Model.ValueNumbers)
     {
@@ -72,7 +73,7 @@
         </div>
     }
     <div class="form-group">
-        <button class="btn btn-success" type="submit" id="submit">Edit item</button>
+        <button class="btn btn-success" type="submit" id="submit">@Localizer["Button-edit"]</button>
     </div>
 </form>
 @foreach (var item in ViewBag.TagNames)

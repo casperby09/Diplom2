@@ -3,18 +3,19 @@
 @using System.Globalization
 @model Item
 @{
-    ViewData["Title"] = "Detail item";
-}
-@if(User.Identity.IsAuthenticated && User.Identity.Name == @Model.Collection.ApplicationUser.UserName || User.IsInRole("admin"))
-{
-    <div class="row mb-2 col-sm-6">
-    <a class="btn btn-danger mr-1" asp-controller="Item" asp-action="Delete" asp-route-id="@Model.ItemId">Delete item</a>
-    <a class="btn btn-success" asp-controller="Item" asp-action="Edit" asp-route-id="@Model.ItemId">Edit item</a>
-    </div>
+    ViewData["Title"] = @Localizer["Title"];
 }
 @section Links {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 }
+@if(User.Identity.IsAuthenticated && User.Identity.Name == @Model.Collection.ApplicationUser.UserName || User.IsInRole("admin"))
+{
+    <div class="row mb-2 col-sm-6">
+    <a class="btn btn-danger mr-1" asp-controller="Item" asp-action="Delete" asp-route-id="@Model.ItemId">@Localizer["Button-delete"]</a>
+    <a class="btn btn-success" asp-controller="Item" asp-action="Edit" asp-route-id="@Model.ItemId">@Localizer["Button-edit"]</a>
+    </div>
+}
+
 
 @foreach (var tag in Model.Tags)
 {
@@ -22,7 +23,7 @@
 }
 <hr />
 <div class="row">
-    <div class="col-sm-2">Name</div>
+    <div class="col-sm-2">@Localizer["Name-string"]</div>
     <div class="col-sm-6">@Model.ItemName</div>
 </div>
 @foreach (var number in Model.ValueNumbers)
@@ -60,11 +61,11 @@
 
         @if (logical.Value == true)
         {
-            <div class="col-sm-6">Yes</div>
+            <div class="col-sm-6">@Localizer["Yes-string"]</div>
         }
         else
         {
-            <div class="col-sm-6">No</div>
+            <div class="col-sm-6">@Localizer["No-string"]</div>
         }
     </div>
 }
@@ -104,20 +105,15 @@
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-info">
-            <div class="panel-heading">
-                Comments
-            </div>
+            <div class="panel-heading">@Localizer["Comment-string"]</div>
             <div class="panel-body comments">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <textarea class="form-control textcomment" maxlength=200 placeholder="Comment" rows="5"></textarea>
+                    <textarea class="form-control textcomment" maxlength=200 rows="5"></textarea>
                     <br>
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <a class="small pull-left" href="">LogIn</a>
-                    }
-                    <a class="btn btn-info pull-right sendcomment"
-                data-itemid="@Model.ItemId" data-username="@User.Identity.Name">Send</a>
+                    <a class="btn btn-info pull-right sendcomment" data-itemid="@Model.ItemId" data-username="@User.Identity.Name">
+                        @Localizer["Button-send"]
+                    </a>
                     <div class="clearfix"></div>
                 }
                 <hr>

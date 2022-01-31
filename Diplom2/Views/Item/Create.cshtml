@@ -1,28 +1,26 @@
 ﻿@model Diplom2.Models.Collection
 @{
-    ViewData["Title"] = "Create Item";
+    ViewData["Title"] = @Localizer["Title"];
 }
 
 <form autocomplete="off" method="post">
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="itemName">Name :</label>
+        <label class="col-sm-2 col-form-label" for="itemName">@Localizer["Label-name"]</label>
         <div class="col-sm-6">
             <input class="form-control" id="itemName" type="text" name="itemName" required />
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="itemName">Tags</label>
+        <label class="col-sm-2 col-form-label" for="itemName">@Localizer["Label-tags"]</label>
         <div class="col-sm-6">
             <div class="autocomplete" data-no-enter="true" data-type-zone-class="form-control type-zone" data-tags-input-name="tags" id="tagBox"></div>
         </div>
-        <div style="font-size: 0.8rem" class="col-sm-3">
-            After entering a tag, press the spacebar to add a new tag
-        </div>
+        <div style="font-size: 0.8rem" class="col-sm-3">@Localizer["Tags-help"]</div>
     </div>
     @foreach (var item in Model.Numbers)
     {
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="number_@item.Id">@item.Name :</label>
+            <label class="col-sm-2 col-form-label" for="number_@item.Id">@item.Name</label>
             <div class="col-sm-6">
                 <input class="form-control" id="number_@item.Id" type="number" step="any" name="number_@item.Id" required />
             </div>
@@ -31,7 +29,7 @@
     @foreach (var item in Model.Lines)
     {
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="lines_@item.Id">@item.Name :</label>
+            <label class="col-sm-2 col-form-label" for="lines_@item.Id">@item.Name</label>
             <div class="col-sm-6">
                 <input class="form-control" id="lines_@item.Id" type="text" name="line_@item.Id" required />
             </div>
@@ -40,7 +38,7 @@
     @foreach (var item in Model.Texts)
     {
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="text_@item.Id">@item.Name :</label>
+            <label class="col-sm-2 col-form-label" for="text_@item.Id">@item.Name</label>
             <div class="col-sm-6">
                 <textarea rows="3" class="form-control" id="text_@item.Id" type="text" placeholder="Markdown text" name="text_@item.Id" required></textarea>
             </div>
@@ -49,7 +47,7 @@
     @foreach (var item in Model.Dates)
     {
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="date_@item.Id">@item.Name :</label>
+            <label class="col-sm-2 col-form-label" for="date_@item.Id">@item.Name</label>
             <div class="col-sm-6">
                 <input class="form-control" id="date_@item.Id" type="date" name="date_@item.Id" required />
             </div>
@@ -58,14 +56,14 @@
     @foreach (var item in Model.Logicals)
     {
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="logical_@item.Id">@item.Name :</label>
+            <label class="col-sm-2 col-form-label" for="logical_@item.Id">@item.Name</label>
             <div class="col-sm-1">
                 <input class="form-control" id="logical_@item.Id" value="true" type="checkbox" name="logical_@item.Id" />
             </div>
         </div>
     }
     <div class="form-group">
-        <button asp-route-idCollection="@Model.CollectionId" class="btn btn-success" type="submit" id="submit">Add new item</button>
+        <button asp-route-idCollection="@Model.CollectionId" class="btn btn-success" type="submit" id="submit">@Localizer["Button-create-item"]</button>
     </div>
 </form>
 @foreach (var item in ViewBag.TagNames)

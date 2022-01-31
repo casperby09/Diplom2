@@ -1,5 +1,5 @@
 ﻿body, .row .card-item, .comments textarea, .form-control, input[type=text], .bg-white, .navbar-light .navbar-brand,
-.navbar-light .navbar-nav .nav-link, tr, .main-section, .autocomplete-items div {
+.navbar-light .navbar-nav .nav-link, tr, .main-section, .autocomplete-items div, .form-horizontal select {
     background-color: #19191A !important;
     color: #fff !important;
 }

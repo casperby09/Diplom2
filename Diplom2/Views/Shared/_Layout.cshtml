@@ -6,28 +6,27 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    @if (User.Identity.IsAuthenticated )
-    {  
-        @if(User.FindFirst("ThemeSite") != null)
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (User.FindFirst("ThemeSite") != null)
         {
-        if(User.FindFirst("ThemeSite").Value == "True")
-        {
-            
+            if (User.FindFirst("ThemeSite").Value == "True")
+            {
+
                 <link rel="stylesheet" href="~/css/darktheme.css" />
+            }
         }
-    }
-        
     }
     @{
-            var t = User.FindAll("ThemeSite");
-        }
+        var t = User.FindAll("ThemeSite");
+    }
     @RenderSection("Links", required: false)
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Diplom2</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Name-site"]</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -41,12 +40,11 @@
                                     <div class="col-sm-9">
                                         <input class="form-control" id="search" type="text" name="search" />
                                     </div>
-                                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                                    <button class="btn btn-outline-primary" type="submit">@Localizer["Search-button"]</button>
                                 </div>
                             </form>
                         </li>
                     </ul>
-                   
                 </div>
             </div>
         </nav>
@@ -59,7 +57,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Diplom2
+            &copy; 2022 - @Localizer["Name-site"]
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

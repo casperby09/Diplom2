@@ -4,7 +4,9 @@ using Diplom2.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -118,21 +120,25 @@ namespace Diplom2.Controllers
         [AllowAnonymous]
         public IActionResult SortTag(int tagid)
         {
-            var items = _context.Tags
+            if(tagid != 0)
+            {
+                var items = _context.Tags
                 .Include(u => u.Items)
                     .ThenInclude(u => u.Item)
                 .FirstOrDefault(u => u.TagId == tagid)
                 .Items.ToList();
-            List<Item> result = new List<Item>();
-            foreach (var item in items)
-            {
-                result.Add(item.Item);
+                List<Item> result = new List<Item>();
+                foreach (var item in items)
+                {
+                    result.Add(item.Item);
+                }
+                if (items.Count > 0)
+                {
+                    ViewBag.Title = items.First().Tag.Name;
+                    return View(result);
+                }
             }
-            if (items.Count > 0)
-            {
-                ViewBag.Title = items.First().Tag.Name;
-                return View(result);
-            }
+            
             return RedirectToAction("Index", "Home");
         }
 
@@ -198,6 +204,18 @@ namespace Diplom2.Controllers
             }
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            return LocalRedirect(returnUrl);
         }
     }
 }
